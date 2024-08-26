@@ -14,7 +14,7 @@ global tdmsData;
 global newTdmsData;
 global functionButtonList;
 global loadFilePath;
-titleString = 'TDMS editor v0.1';
+titleString = 'TDMS editor v1.0';
 
 disp(titleString);
 disp('Institute of Medical Biotechnology, FAU Erlangen');
@@ -196,11 +196,17 @@ global tdmsData;
 global functionButtonList;
 global loadFilePath;
 
-[fileName, filePath] = uigetfile('*.tdms',"Select a TDMS file", "E:\DATEN\Projekte\2022_MarfanAortaWagner_Schneidereit\03 RawData","MultiSelect","off");
-loadFilePath = filePath;
-targetFile = [filePath fileName];
+if ~isempty(loadFilePath)
+    defaultSearchPath = loadFilePath;
+else
+    defaultSearchPath = "C:\";
+end
+
+[fileName, filePath] = uigetfile('*.tdms',"Select a TDMS file", defaultSearchPath,"MultiSelect","off");
 
 if ischar(fileName)
+    loadFilePath = filePath;
+    targetFile = [filePath fileName];
     disp(['loading ' fileName '...'])
     tdmsData = readTdmsFileToArrays(targetFile);
     updateGraph(tdmsData);
