@@ -14,6 +14,7 @@ global tdmsData;
 global newTdmsData;
 global functionButtonList;
 global loadFilePath;
+global tdmsInfoData;
 titleString = 'TDMS editor v1.1';
 
 disp(titleString);
@@ -74,7 +75,9 @@ end
 %end of main loop, start of function space
 
 function tdmsData = readTdmsFileToArrays(targetFile)
+global tdmsInfoData;
 tdmsData = tdmsread(targetFile);
+tdmsInfoData = tdmsinfo(targetFile);
 return
 end
 
@@ -110,6 +113,7 @@ end
 function saveButton_callback(src,event)
 global loadFilePath;
 global tdmsData;
+global tdmsInfoData;
 [fileName, filePath] = uiputfile([loadFilePath 'ModifiedFile.tdms'],"Define a save file name and location");
 targetFile = [filePath fileName];
 if ischar(fileName)
@@ -118,7 +122,8 @@ if ischar(fileName)
         delete(targetFile);
     end
     disp(['Saving ' fileName '...']);
-    tdmswrite(targetFile, tdmsData);
+    %tdmswrite(targetFile, tdmsData);
+    tdmswrite(targetFile, tdmsData, ChannelGroupNames=tdmsInfoData.ChannelList.ChannelGroupName(1:2:end)); %assuming each channel group has 2 channels, channel group names are copied
     disp('Done');
 end
 end
