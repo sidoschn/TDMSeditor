@@ -1,5 +1,5 @@
 %TDMS editor
-%1.0
+%1.1
 %Dominik Schneidereit
 %dominik.schneidereit@fau.de
 
@@ -14,7 +14,7 @@ global tdmsData;
 global newTdmsData;
 global functionButtonList;
 global loadFilePath;
-titleString = 'TDMS editor v1.0';
+titleString = 'TDMS editor v1.1';
 
 disp(titleString);
 disp('Institute of Medical Biotechnology, FAU Erlangen');
@@ -113,6 +113,10 @@ global tdmsData;
 [fileName, filePath] = uiputfile([loadFilePath 'ModifiedFile.tdms'],"Define a save file name and location");
 targetFile = [filePath fileName];
 if ischar(fileName)
+    if isfile(targetFile)
+        disp(['Deleting old ' fileName '...']);
+        delete(targetFile);
+    end
     disp(['Saving ' fileName '...']);
     tdmswrite(targetFile, tdmsData);
     disp('Done');
