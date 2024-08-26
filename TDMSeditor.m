@@ -25,10 +25,10 @@ mainWindow = uifigure;
 
 displayFigure = figure;
 yyaxis left;
-xlabel('Time (s)');
-ylabel('Force (mN)');
+%xlabel('Time (s)');
+%ylabel('Force (mN)');
 yyaxis right;
-ylabel('Position (µm)');
+%ylabel('Position (µm)');
 
 displayFigure.CloseRequestFcn = @(src, event)mainWindowClose_callback(src);
 %this functionality is depreceated
@@ -99,10 +99,11 @@ y2Stretch = ttData2{:, 2};
 
 hold on;
 yyaxis left;
-
+xlabel(ttData.Properties.VariableNames{1});
+ylabel(ttData.Properties.VariableNames{2});
 plot1=plot(xTime, y1Force, 'LineWidth', 2.0);
 yyaxis right;
-
+ylabel(ttData2.Properties.VariableNames{2});
 plot2=plot(xTime, y2Stretch, 'LineWidth', 2.0);
 grid on
 hold off;
