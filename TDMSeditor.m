@@ -28,13 +28,15 @@ yyaxis left;
 %xlabel('Time (s)');
 %ylabel('Force (mN)');
 yyaxis right;
-%ylabel('Position (µm)');
+%ylabel('Position (�m)');
 
 displayFigure.CloseRequestFcn = @(src, event)mainWindowClose_callback(src);
 %this functionality is depreceated
 %set(displayFigure,"WindowButtonDownFcn", @figureWindowClickCallback);
 displayFigure.NumberTitle = 'off';
 displayFigure.Name = titleString;
+displayFigure.ToolBar = 'none';
+displayFigure.MenuBar = 'none';
 
 windowHeight = 200;
 windowWidth = 180;
